@@ -1,16 +1,25 @@
-TARGET = px86.exe
+TARGET = px86
+PROGRAM = helloworld.bin
 OBJS = main.o
-Z_TOOLS = ../z_tools
 
-CC = $(Z_TOOLS)/mingw32-gcc/bin/gcc
-CFLAGS += -Wall
+CC = gcc
+CFLAGS += -O2 -Wall -Wextra
 
-.PHONY: all
-all :
-	make $(TARGET)
+.PHONY: all run
+all : $(TARGET)
 
-%.o : %.c Makefile
+run : $(TARGET) $(PROGRAM)
+	./$(TARGET) $(PROGRAM)
+
+%.bin : %.asm
+	nasm -f bin -o $@ $<
+
+
+$(TARGET) : $(OBJS)
+	$(CC) -o $@ $(OBJS)
+
+%.o : %.c
 	$(CC) $(CFLAGS) -c $<
 
-$(TARGET) : $(OBJS) Makefile
-	$(CC) -o $@ $(OBJS)
+clean:
+	rm -f $(TARGET) $(OBJS) $(PROGRAM)
