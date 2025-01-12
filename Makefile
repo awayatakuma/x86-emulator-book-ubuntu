@@ -5,7 +5,8 @@ PROGRAM_LEAVE = leave-test.bin
 PROGRAM_LEAVE2 = leave-test2.bin
 PROGRAM_IF = if-test.bin
 PROGRAM_IO = in.bin out.bin select.bin
-OBJS = main.o emulator_function.o instruction.o modrm.o io.o
+PROGRAM_BIOS = subroutine32.bin
+OBJS = main.o emulator_function.o instruction.o modrm.o io.o bios.o
 
 CC = gcc
 CFLAGS += -O2 -Wall -Wextra
@@ -45,6 +46,8 @@ if-test.o : if-test.c
 
 run-io: $(TARGET) $(PROGRAM_IO)
 
+run-bios: $(TARGET) $(PROGRAM_BIOS) 
+
 %.bin : %.asm
 	nasm -f bin -o $@ $<
 
@@ -59,4 +62,4 @@ $(TARGET) : $(OBJS)
 
 clean:
 	rm -f $(TARGET) $(PROGRAM) $(OBJS) crt0.o call-test.bin leave-test.o leave-test.bin leave-test2.o leave-test2.bin \
-	if-test.o if-test.bin select.bin in.bin out.bin 
+	if-test.o if-test.bin select.bin in.bin out.bin subroutine32.bin
