@@ -3,6 +3,7 @@ PROGRAM = crt0.bin
 PROGRAM_CALL = call-test.bin
 PROGRAM_LEAVE = leave-test.bin
 PROGRAM_LEAVE2 = leave-test2.bin
+PROGRAM_IF = if-test.bin
 OBJS = main.o emulator_function.o instruction.o modrm.o
 
 CC = gcc
@@ -32,6 +33,14 @@ $(PROGRAM_LEAVE2) : crt0.o leave-test2.o
 leave-test2.o : leave-test2.c
 	$(CC) -O0 -march=i386 -m32 -nostdlib -fno-asynchronous-unwind-tables -g -fno-stack-protector -fno-pie -c -o $@ $<
 
+run-if: $(TARGET) $(PROGRAM_IF)
+	./$(TARGET) $(PROGRAM_IF)
+
+$(PROGRAM_IF) : crt0.o if-test.o
+	$(LD) -m elf_i386 --entry=start --oformat=binary -Ttext 0x7c00 -o $@ $^
+
+if-test.o : if-test.c
+	$(CC) -O0 -march=i386 -m32 -nostdlib -fno-asynchronous-unwind-tables -g -fno-stack-protector -fno-pie -c -o $@ $<
 
 %.bin : %.asm
 	nasm -f bin -o $@ $<
@@ -47,4 +56,4 @@ $(TARGET) : $(OBJS)
 
 
 clean:
-	rm -f $(TARGET) $(PROGRAM) $(OBJS) crt0.o call-test.bin leave-test.o leave-test.bin leave-test2.o leave-test2.bin
+	rm -f $(TARGET) $(PROGRAM) $(OBJS) crt0.o call-test.bin leave-test.o leave-test.bin leave-test2.o leave-test2.bin if-test.o if-test.bin
