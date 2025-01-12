@@ -43,10 +43,44 @@ static void dump_registers(Emulator *emu)
     printf("EIP = %08x\n", emu->eip);
 }
 
+int opt_remove_at(int argc, char *argv[], int index)
+{
+    if (index < 0 || argc <= index)
+    {
+        return argc;
+    }
+    else
+    {
+        int i = index;
+        for (; i < argc - 1; i++)
+        {
+            argv[i] = argv[i + 1];
+        }
+        argv[i] = NULL;
+        return argc - 1;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     FILE *binary;
     Emulator *emu;
+    int i;
+    int quiet = 0;
+
+    i = 1;
+    while (i < argc)
+    {
+        if (strcmp(argv[i], "-q") == 0)
+        {
+            quiet = 1;
+            argc = opt_remove_at(argc, argv, i);
+        }
+        else
+        {
+            i++;
+        }
+    }
 
     if (argc != 2)
     {
@@ -71,7 +105,10 @@ int main(int argc, char *argv[])
     while (emu->eip < MEMORY_SIZE)
     {
         uint8_t code = get_code8(emu, 0);
-        printf("EIP = %X, Code = %02X\n", emu->eip, code);
+        if (!quiet)
+        {
+            printf("EIP = %X, Code = %02X\n", emu->eip, code);
+        }
 
         if (instructions[code] == NULL)
         {

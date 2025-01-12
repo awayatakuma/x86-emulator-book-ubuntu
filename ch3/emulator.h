@@ -13,7 +13,15 @@ enum Register
     EBP,
     ESI,
     EDI,
-    REGISTERS_COUNT
+    REGISTERS_COUNT,
+    AL = EAX,
+    CL = ECX,
+    DL = EDX,
+    BL = EBX,
+    AH = AL + 4,
+    CH = CL + 4,
+    DH = DL + 4,
+    BH = BL + 4
 };
 
 typedef struct
