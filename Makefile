@@ -1,5 +1,8 @@
 TARGET = px86
 PROGRAM = crt0.bin
+PROGRAM_HELLOWORLD = helloworld.bin
+PROGRAM_HELLOWORLD2 = helloworld2.bin
+PROGRAM_MODRM = modrm-test.bin
 PROGRAM_CALL = call-test.bin
 PROGRAM_LEAVE = leave-test.bin
 PROGRAM_LEAVE2 = leave-test2.bin
@@ -13,6 +16,15 @@ CFLAGS += -O2 -Wall -Wextra
 
 .PHONY: all run-call-test run-crt run-crt2
 all : $(TARGET)
+
+run-helloworld: $(TARGET) $(PROGRAM_HELLOWORLD)
+	./$(TARGET) $(PROGRAM_HELLOWORLD)
+
+run-helloworld2: $(TARGET) $(PROGRAM_HELLOWORLD2)
+	./$(TARGET) $(PROGRAM_HELLOWORLD2)
+
+run-modrm: $(TARGET) $(PROGRAM_MODRM)
+	./$(TARGET) $(PROGRAM_MODRM)
 
 run-call-test : $(TARGET) $(PROGRAM_CALL)
 	./$(TARGET) $(PROGRAM_CALL)
@@ -61,5 +73,4 @@ $(TARGET) : $(OBJS)
 	$(CC) -o $@ $(OBJS)
 
 clean:
-	rm -f $(TARGET) $(PROGRAM) $(OBJS) crt0.o call-test.bin leave-test.o leave-test.bin leave-test2.o leave-test2.bin \
-	if-test.o if-test.bin select.bin in.bin out.bin subroutine32.bin
+	rm -f $(TARGET) $(PROGRAM) $(PROGRAM_HELLOWORLD) $(PROGRAM_HELLOWORLD2) $(PROGRAM_MODRM) $(PROGRAM_LEAVE) $(PROGRAM_LEAVE2) $(PROGRAM_CALL) $(PROGRAM_IF) $(PROGRAM_IO) $(PROGRAM_BIOS) $(OBJS) crt0.o
