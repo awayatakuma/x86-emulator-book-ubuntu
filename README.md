@@ -2,6 +2,8 @@
 
 ![自作エミュレータで学ぶx86アーキテクチャ-コンピュータが動く仕組みを徹底理解!](image.png)
 
+Support page: [『自作エミュレータで学ぶx86アーキテクチャ』サポートサイト | マイナビブックス](https://book.mynavi.jp/supportsite/detail/9784839954741.html)
+
 ## Runtime Environment
 
 I check my codes in Ubuntu on WSL.
@@ -76,7 +78,7 @@ EIP = 00000000
 
 #### command
 
-` make run-modrm`
+`make run-modrm`
 
 #### output
 
@@ -111,7 +113,7 @@ EIP = 00000000
 
 #### command
 
-`  make run-crt `
+` make run-crt`
 
 #### output
 
@@ -149,7 +151,7 @@ EIP = 00000000
 
 #### command
 
-`  make run-crt2 `
+` make run-crt2`
 
 #### output
 
@@ -193,7 +195,7 @@ EIP = 00000000
 
 #### command
 
-`  make run-if `
+` make run-if`
 
 #### output
 
@@ -228,11 +230,11 @@ EIP = 00000000
 
 #### preparetion
 
-`  make run-io `
+` make run-io`
 
 #### command
 
-``` 
+```
 ./px86 -q in.bin 
 a
 ```
@@ -260,11 +262,11 @@ EIP = 00000000
 
 #### preparetion
 
-`  make run-io `
+` make run-io`
 
 #### command
 
-``` 
+```
 ./px86 -q out.bin 
 ```
 
@@ -290,11 +292,11 @@ EIP = 00000000
 
 #### preparetion
 
-`  make run-io `
+` make run-io`
 
 #### command
 
-``` 
+```
 ./px86 -q select.bin 
 h
 w
@@ -329,7 +331,7 @@ EIP = 00000000
 
 #### preparetion
 
-`  make run-bios `
+` make run-bios`
 
 #### command
 
@@ -364,4 +366,4 @@ You will see the sentence "hello, world" is colored in green.
 
 #### command
 
-` make clean `
+`make clean`
